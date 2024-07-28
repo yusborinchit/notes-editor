@@ -56,7 +56,12 @@ export default async function HomePage() {
         <ScrollArea className="mt-4 pb-6">
           <div className="flex w-max gap-4">
             {userNotes.map((note) => (
-              <NoteCard key={note.id} {...note} />
+              <NoteCard
+                key={note.id}
+                date={note.createdAt.toLocaleDateString()}
+                time={note.createdAt.toLocaleTimeString()}
+                {...note}
+              />
             ))}
           </div>
           <ScrollBar orientation="horizontal" />
