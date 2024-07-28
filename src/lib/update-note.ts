@@ -1,6 +1,6 @@
 export async function updateNote(id: number, title: string, content: string) {
   try {
-    const res = await fetch("http://localhost:3000/api/notes/", {
+    const res = await fetch(`${process.env.NEXTAUTH_URL}/api/notes/`, {
       method: "PUT",
       body: JSON.stringify({
         id,
