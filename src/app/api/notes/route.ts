@@ -14,7 +14,7 @@ export async function PUT(req: Request) {
     .object({
       id: z.number(),
       title: z.string(),
-      content: z.string(),
+      content: z.string().nullable(),
     })
     .safeParse(body);
 

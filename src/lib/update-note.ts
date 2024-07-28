@@ -1,4 +1,8 @@
-export async function updateNote(id: number, title: string, content: string) {
+export async function updateNote(
+  id: number,
+  title: string,
+  content: string | null,
+) {
   try {
     const res = await fetch(`/api/notes/`, {
       method: "PUT",

@@ -16,7 +16,7 @@ export default function NoteCard(props: Readonly<Props>) {
     <a
       key={props.id}
       href={`/notes/${props.id}`}
-      className="duration-500 animate-in fade-in-5 slide-in-from-left-6"
+      className="w-40 overflow-hidden duration-500 animate-in fade-in-5 slide-in-from-left-6"
     >
       <div className="group relative grid aspect-square w-40 place-items-center overflow-hidden rounded-md bg-primary">
         <form action={deleteNoteAction} className="absolute right-2 top-2 z-10">

@@ -1,5 +1,6 @@
 "use client";
 
+import { useDebounce } from "@uidotdev/usehooks";
 import { useEffect, useState } from "react";
 import { updateNote } from "~/lib/update-note";
 import { Input } from "./ui/input";
@@ -15,13 +16,17 @@ export default function NoteEditor(props: Readonly<Props>) {
   const [isLoading, setIsLoading] = useState(false);
   const [title, setTitle] = useState(props.title);
   const [content, setContent] = useState(props.content);
+  const debouncedTitle = useDebounce(title, 200);
+  const debouncedContent = useDebounce(content, 200);
 
   useEffect(() => {
     setIsLoading(true);
-    updateNote(props.id, title!, content!)
+    updateNote(props.id, debouncedTitle ?? "", debouncedContent)
       .catch(() => console.error("error on update"))
       .finally(() => setIsLoading(false));
-  }, [props.id, title, content]);
+  }, [props.id, debouncedTitle, debouncedContent]);
+  
+  useEffect(() => setIsLoading(true), [title, content]);
 
   function handleTextareaReSize(textarea: HTMLTextAreaElement) {
     textarea.style.height = "auto";
