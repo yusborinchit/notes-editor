@@ -1,6 +1,7 @@
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
+import MainFooter from "~/components/main-footer";
 import MainHeader from "~/components/main-header";
 import "~/styles/globals.css";
 
@@ -19,6 +20,7 @@ export default function RootLayout(props: Readonly<Props>) {
       <body className="dark flex min-h-screen flex-col bg-background font-geist-sans text-foreground">
         <MainHeader />
         {props.children}
+        <MainFooter />
       </body>
     </html>
   );

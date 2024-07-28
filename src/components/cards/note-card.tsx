@@ -39,7 +39,7 @@ export default function NoteCard(props: Readonly<Props>) {
       key={props.id}
       ref={noteRef}
       href={`/notes/${props.id}`}
-      className="w-40 overflow-hidden duration-300 animate-in fade-in-5 slide-in-from-left-6 data-[deleted=true]:hidden data-[deleted=true]:opacity-0 data-[delete=true]:duration-500 data-[delete=true]:animate-out data-[delete=true]:fade-out data-[delete=true]:slide-out-to-top"
+      className="w-40 overflow-hidden duration-500 animate-in fade-in-5 slide-in-from-left-6 data-[deleted=true]:hidden data-[deleted=true]:opacity-0 data-[delete=true]:duration-500 data-[delete=true]:animate-out data-[delete=true]:fade-out data-[delete=true]:slide-out-to-top"
     >
       <div className="group relative grid aspect-square w-40 place-items-center overflow-hidden rounded-md bg-primary">
         <form
@@ -49,10 +49,10 @@ export default function NoteCard(props: Readonly<Props>) {
         >
           <input type="hidden" name="id" value={props.id} />
           <Button
+            size="icon"
             variant="ghost"
             onClick={handleDeleteAnimation}
             className="hover:bg-foreground/20"
-            size="icon"
           >
             <Trash2 className="size-6" />
           </Button>
