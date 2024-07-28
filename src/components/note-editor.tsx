@@ -25,7 +25,7 @@ export default function NoteEditor(props: Readonly<Props>) {
       .catch(() => console.error("error on update"))
       .finally(() => setIsLoading(false));
   }, [props.id, debouncedTitle, debouncedContent]);
-  
+
   useEffect(() => setIsLoading(true), [title, content]);
 
   function handleTextareaReSize(textarea: HTMLTextAreaElement) {

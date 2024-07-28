@@ -1,4 +1,4 @@
-import { ExternalLink, Trash2 } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -8,6 +8,7 @@ import {
   TableRow,
 } from "~/components/ui/table";
 import { deleteNoteAction } from "~/server/actions";
+import DeleteTableNoteButton from "./buttons/delete-table-note-button";
 import { Button } from "./ui/button";
 import { ScrollArea, ScrollBar } from "./ui/scroll-area";
 
@@ -58,9 +59,7 @@ export default function NotesTable(props: Readonly<Props>) {
                 </Button>
                 <form action={deleteNoteAction}>
                   <input type="hidden" name="id" value={note.id} />
-                  <Button size="icon">
-                    <Trash2 className="size-[18px]" />
-                  </Button>
+                  <DeleteTableNoteButton />
                 </form>
               </TableCell>
             </TableRow>
