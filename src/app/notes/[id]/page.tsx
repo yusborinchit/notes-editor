@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import NoteEditor from "~/components/note-editor";
+import Note from "~/components/note-preview/note";
 import { getServerAuthSession } from "~/server/auth";
 import { queryNoteById } from "~/server/queries";
 
@@ -8,6 +8,8 @@ interface Props {
     id: number;
   };
 }
+
+export const dynamic = "force-dynamic";
 
 export default async function NotePage(props: Readonly<Props>) {
   const session = await getServerAuthSession();
@@ -23,7 +25,7 @@ export default async function NotePage(props: Readonly<Props>) {
 
   return (
     <main className="mx-auto mt-12 flex h-full w-full max-w-screen-md flex-1 flex-col px-8 pb-4">
-      <NoteEditor id={noteId} title={note.title} content={note.content} />
+      <Note id={noteId} title={note.title} content={note.content} />
     </main>
   );
 }
