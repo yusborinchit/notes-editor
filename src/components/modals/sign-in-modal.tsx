@@ -1,3 +1,4 @@
+import { PlusCircle } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -8,16 +9,20 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "~/components/ui/alert-dialog";
-import SignInButton from "./buttons/sign-in-button";
+import SignInButton from "../buttons/sign-in-button";
+import { Button } from "../ui/button";
 
-interface Props {
-  children: React.ReactNode;
-}
-
-export default function SignInModal(props: Readonly<Props>) {
+export default function SignInModal() {
   return (
     <AlertDialog>
-      <AlertDialogTrigger>{props.children}</AlertDialogTrigger>
+      <AlertDialogTrigger>
+        <Button asChild variant="outline">
+          <span>
+            <PlusCircle className="mr-2 size-5 text-primary" />
+            New Note
+          </span>
+        </Button>
+      </AlertDialogTrigger>
       <AlertDialogContent className="max-w-[300px]">
         <AlertDialogHeader>
           <AlertDialogTitle className="text-center text-3xl font-bold tracking-tighter">

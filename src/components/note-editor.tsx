@@ -16,14 +16,21 @@ export default function NoteEditor(props: Readonly<Props>) {
   const [isLoading, setIsLoading] = useState(false);
   const [title, setTitle] = useState(props.title);
   const [content, setContent] = useState(props.content);
+
   const debouncedTitle = useDebounce(title, 200);
   const debouncedContent = useDebounce(content, 200);
 
   useEffect(() => {
     setIsLoading(true);
     updateNote(props.id, debouncedTitle ?? "", debouncedContent)
-      .catch(() => console.error("error on update"))
-      .finally(() => setIsLoading(false));
+      .catch(() => {
+        console.error("error on update");
+        setIsLoading(false);
+      })
+      .finally(() => {
+        console.log("note saved successfully");
+        setIsLoading(false);
+      });
   }, [props.id, debouncedTitle, debouncedContent]);
 
   useEffect(() => setIsLoading(true), [title, content]);

@@ -1,10 +1,10 @@
 "use client";
 
-import { FileType, Trash2 } from "lucide-react";
+import { FileType, Loader2, Trash2 } from "lucide-react";
 import { useRef } from "react";
 import { delay } from "~/lib/delay";
 import { deleteNoteAction } from "~/server/actions";
-import { Button } from "../ui/button";
+import FormButton from "../buttons/form-button";
 
 interface Props {
   id: number;
@@ -48,14 +48,15 @@ export default function NoteCard(props: Readonly<Props>) {
           className="absolute right-2 top-2 z-10"
         >
           <input type="hidden" name="id" value={props.id} />
-          <Button
+          <FormButton
             size="icon"
             variant="ghost"
             onClick={handleDeleteAnimation}
             className="hover:bg-foreground/20"
+            pendingChildren={<Loader2 className="size-6 animate-spin" />}
           >
             <Trash2 className="size-6" />
-          </Button>
+          </FormButton>
         </form>
         <FileType className="size-28 opacity-20 transition-transform group-hover:scale-110" />
       </div>

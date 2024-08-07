@@ -1,10 +1,8 @@
 "use server";
 
-import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { getServerAuthSession } from "./auth";
-import { db } from "./db";
-import { notes } from "./db/schema";
+import { queryDeleteNoteById, queryInsertNote } from "./queries";
 
 export async function createNoteAction(formData: FormData) {
   const session = await getServerAuthSession();
@@ -13,10 +11,10 @@ export async function createNoteAction(formData: FormData) {
   const number = Number(formData.get("number"));
   if (Number.isNaN(number)) return;
 
-  await db.insert(notes).values({
+  await queryInsertNote({
     title: `Note ${number}`,
     createdById: session.user.id,
-  });
+  }).execute();
 
   revalidatePath("/");
 }
@@ -26,11 +24,9 @@ export async function deleteNoteAction(formData: FormData) {
   if (!session || !session.user) return;
 
   const noteId = Number(formData.get("id"));
-  if (Number.isNaN(noteId)) return;
+  if (!noteId || Number.isNaN(noteId)) return;
 
-  await db
-    .delete(notes)
-    .where(and(eq(notes.id, noteId), eq(notes.createdById, session.user.id)));
+  await queryDeleteNoteById(noteId, session.user.id).execute();
 
   revalidatePath("/");
 }

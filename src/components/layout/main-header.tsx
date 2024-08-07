@@ -1,10 +1,11 @@
 import { NotebookPen } from "lucide-react";
 import { getServerAuthSession } from "~/server/auth";
-import ProfileButton from "./buttons/profile-button";
-import SignInButton from "./buttons/sign-in-button";
+import ProfileButton from "../buttons/profile-button";
+import SignInButton from "../buttons/sign-in-button";
 
 export default async function MainHeader() {
   const session = await getServerAuthSession();
+  const hasAccount = !!session && !!session.user;
 
   return (
     <header className="mx-auto flex w-full max-w-screen-md items-center justify-between px-8 pt-4">
@@ -14,11 +15,7 @@ export default async function MainHeader() {
           Notebook
         </span>
       </a>
-      {session && session.user ? (
-        <ProfileButton user={session.user} />
-      ) : (
-        <SignInButton />
-      )}
+      {hasAccount ? <ProfileButton user={session.user} /> : <SignInButton />}
     </header>
   );
 }

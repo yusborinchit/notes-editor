@@ -1,6 +1,6 @@
 import { Wind } from "lucide-react";
-import NoteCard from "./cards/note-card";
-import { ScrollArea, ScrollBar } from "./ui/scroll-area";
+import NoteCard from "../cards/note-card";
+import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 
 interface Props {
   notes: {

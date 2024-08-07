@@ -1,8 +1,6 @@
-import { eq } from "drizzle-orm";
 import { z } from "zod";
 import { getServerAuthSession } from "~/server/auth";
-import { db } from "~/server/db";
-import { notes } from "~/server/db/schema";
+import { queryUpdateNoteById } from "~/server/queries";
 
 export async function PUT(req: Request) {
   const session = await getServerAuthSession();
@@ -20,13 +18,10 @@ export async function PUT(req: Request) {
 
   if (!success) return Response.json({ success: false });
 
-  await db
-    .update(notes)
-    .set({
-      title: data.title === "" ? "New Note" : data.title,
-      content: data.content,
-    })
-    .where(eq(notes.id, data.id));
+  await queryUpdateNoteById(data.id, session.user.id, {
+    title: data.title,
+    content: data.content,
+  }).execute();
 
   return Response.json({ success: true });
 }
