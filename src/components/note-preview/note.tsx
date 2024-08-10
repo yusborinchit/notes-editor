@@ -1,9 +1,11 @@
 "use client";
 
 import { useDebounce } from "@uidotdev/usehooks";
+import { Code, Eye } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Markdown from "react-markdown";
 import { updateNote } from "~/lib/update-note";
+import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 
@@ -66,32 +68,39 @@ export default function Note(props: Readonly<Props>) {
   }
 
   return (
-    <>
-      <button onClick={() => setOnPreview(!onPreview)}>Preview</button>
+    <div className="relative">
+      <div className="flex items-end">
+        <p className="text-sm text-foreground/30">
+          {isLoading ? "Saving..." : "Saved"}
+        </p>
+        <Button
+          onClick={() => setOnPreview(!onPreview)}
+          size="icon"
+          variant="ghost"
+          className="ml-auto"
+        >
+          {onPreview ? <Code className="size-6" /> : <Eye className="size-6" />}
+        </Button>
+      </div>
+      <Input
+        onChange={handleTitle}
+        value={title ?? ""}
+        placeholder="New Note Title..."
+        className="mt-2 h-auto font-geist-mono"
+      />
       {onPreview ? (
-        <Markdown className="prose prose-stone prose-invert">
+        <Markdown className="prose prose-stone prose-invert mt-4">
           {content}
         </Markdown>
       ) : (
-        <>
-          <p className="text-sm text-foreground/30">
-            {isLoading ? "Saving..." : "Saved"}
-          </p>
-          <Input
-            onChange={handleTitle}
-            value={title ?? ""}
-            placeholder="New Note Title..."
-            className="mt-2 h-auto font-geist-mono text-xl"
-          />
-          <Textarea
-            ref={textareaRef}
-            onChange={handleContent}
-            value={content ?? ""}
-            placeholder="Your note content here..."
-            className="mt-4 min-h-[250px] resize-none overflow-hidden border-none font-geist-mono outline-none focus-visible:ring-transparent"
-          />
-        </>
+        <Textarea
+          ref={textareaRef}
+          onChange={handleContent}
+          value={content ?? ""}
+          placeholder="# Your markdown here..."
+          className="mt-2 min-h-[250px] resize-none overflow-hidden border-none font-geist-mono outline-none focus-visible:ring-transparent"
+        />
       )}
-    </>
+    </div>
   );
 }
